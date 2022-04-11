@@ -108,13 +108,33 @@ const enemies = [];
 function spawnEnemies() {
   //create enemy every 1 second
   setInterval(() => {
-    const x = 100;
-    const y = 100;
-    const radius = 30;
+    // randowm spawn of enemies on x axis
+    const radius = Math.random() * (30 - 4) + 4;
+
+    let x;
+    let y;
+
+    if (Math.random() < 0.5) {
+      x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+      y = Math.random() * canvas.height;
+
+      // y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+    } else {
+      x = Math.random() * canvas.width;
+      y = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+
+      // y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+    }
+
     const color = "green";
+
+    //Move enemy to player
+    const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+
+    //velocity
     const velocity = {
-      x: 1,
-      y: 1,
+      x: Math.cos(angle),
+      y: Math.sin(angle),
     };
 
     //push enemy to enemies arr
